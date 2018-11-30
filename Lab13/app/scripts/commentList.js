@@ -8,7 +8,12 @@ module.exports = React.createClass({
             return (
                 <Comment id={comment.id} author={comment.author}
                          key={comment.id}>
-                    {comment.text}
+                    {comment.id}
+                    {comment.title}
+                    {comment.author}
+                    {comment.price}
+                    {comment.course}
+                    {comment.condition}
                 </Comment>
             );
         });
