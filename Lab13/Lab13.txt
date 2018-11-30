@@ -1,3 +1,0 @@
-What benefit did using the React Router bring to the application?
-Which is better, hash history or browser history?
-Why does the server (either Webpack Dev Server or the Express server) have to be modified to support the browser history? Compare this with the hash-based server demonstrated in class, which didn't require such modifications.
