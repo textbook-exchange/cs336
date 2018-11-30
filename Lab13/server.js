@@ -29,8 +29,8 @@ app.use(function(req, res, next) {
 
 app.get('/api/textbooks', function(req, res) {
     // Lab 10 - MongoDB commands
-    db.collection('textbooks').find({}).toArray(function (err, textbooks){
-        res.json(textbooks);
+    db.collection('textbooks').find({}).toArray(function (err, comments){
+        res.json(comments);
     });
 });
 
