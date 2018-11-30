@@ -1,0 +1,10 @@
+{
+  "presets": [
+    "react",
+    "es2015"
+  ]
+}
+
+//  This specifies that when Webpack runs the Babel compilation (see the loaders
+//  specified above), it will support React JSX and ES2015.
+//  For details on this configuration, see Loaders: Babel.
