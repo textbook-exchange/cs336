@@ -1,4 +1,4 @@
-# cs336
+# Textbook Exchange or Book Sharing
 
 Contributors: Kevin Tran, Quentin Barnes, Judy Kwon
 
