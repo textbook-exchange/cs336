@@ -24,33 +24,33 @@ module.exports = React.createClass({
                 }.bind(this));
         }
     },
-    handleTextbookSubmit: function(comment) {
-        var comments = this.state.data;
-        comment.id = Date.now();
-        var newComments = comments.concat([comment]);
-        this.setState({data: newComments});
+    handleTextbookSubmit: function(textbook) {
+        var textbooks = this.state.data;
+        textbook.id = Date.now();
+        var newTextbooks = textbooks.concat([textbook]);
+        this.setState({data: newTextbooks});
         $.ajax({
             url: API_URL,
             dataType: 'json',
             type: 'POST',
-            data: comment,
+            data: textbook,
         })
          .done(function(result){
              this.setState({data: result});
          }.bind(this))
          .fail(function(xhr, status, errorThrown) {
-             this.setState({data: comments});
+             this.setState({data: textbooks});
              console.error(API_URL, status, errorThrown.toString());
          }.bind(this));
     },
     componentDidMount: function() {
         this.state._isMounted = true;
-        this.loadCommentsFromServer();
-        setInterval(this.loadCommentsFromServer, POLL_INTERVAL);
+        this.loadTextbooksFromServer();
+        setInterval(this.loadTextbooksFromServer, POLL_INTERVAL);
     },
     componentWillUnmount: function() {
-        // Reset the isMounted flag so that the loadCommentsFromServer callback
-        // stops requesting state updates when the commentList has been unmounted.
+        // Reset the isMounted flag so that the loadTextbooksFromServer callback
+        // stops requesting state updates when the textbookList has been unmounted.
         // This switch is optional, but it gets rid of the warning triggered by
         // setting state on an unmounted component.
         // See https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
@@ -58,10 +58,10 @@ module.exports = React.createClass({
     },
     render: function() {
         return (
-            <div className="commentBox">
-                <h1>Comments</h1>
-                <CommentList data={this.state.data} />
-                <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+            <div className="textbookBox">
+                <h1>Textbooks</h1>
+                <TextbookList data={this.state.data} />
+                <TextbookForm onTextbookSubmit={this.handleTextbookSubmit} />
             </div>
         );
     }

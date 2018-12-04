@@ -4,17 +4,17 @@ import Textbook from './textbook';
 
 module.exports = React.createClass({
     render: function () {
-        var commentNodes = this.props.data.map(function (comment) {
+        var textbookNodes = this.props.data.map(function (textbook) {
             return (
-                <Comment id={comment.id} author={comment.author}
-                         key={comment.id}>
-                    {comment.text}
+                <Comment id={textbook.id} author={textbook.author}
+                         key={textbook.id}>
+                    {textbook.text}
                 </Comment>
             );
         });
         return (
-            <div className="commentList">
-                {commentNodes}
+            <div className="textbookList">
+                {textbookNodes}
             </div>
         );
     }

@@ -39,7 +39,7 @@ module.exports = React.createClass({
         router: React.PropTypes.object
     },
     handleUpdate: function () {
-        var updatedComment = {
+        var updatedTextbook = {
             author: this.state.author.trim(),
             text: this.state.text.trim()
         };
@@ -48,9 +48,9 @@ module.exports = React.createClass({
             dataType: 'json',
             type: 'PUT',
             contentType: 'application/json',
-            data: JSON.stringify(updatedComment)
+            data: JSON.stringify(updatedTextbook)
         })
-            .done(function (comments) {
+            .done(function (textbooks) {
                 this.context.router.push('/');
             }.bind(this))
             .fail(function (xhr, status, errorThrown) {
@@ -62,7 +62,7 @@ module.exports = React.createClass({
             url: API_URL + "/" + this.props.params.id,
             type: 'DELETE',
         })
-            .done(function (comments) {
+            .done(function (textbooks) {
                 this.context.router.push('/');
             }.bind(this))
             .fail(function (xhr, status, errorThrown) {
@@ -72,8 +72,8 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div>
-                <form className="commentForm">
-                    <h1>Comment Edit - {this.props.params.id}</h1>
+                <form className="textbookForm">
+                    <h1>Textbook Edit - {this.props.params.id}</h1>
                     <input
                         type="text"
                         value={this.state.author}

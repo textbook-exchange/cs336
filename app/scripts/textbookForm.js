@@ -18,16 +18,16 @@ module.exports = React.createClass({
         if (!text || !author) {
             return;
         }
-        this.props.onCommentSubmit({author: author, text: text});
+        this.props.onTextbookSubmit({author: author, text: text});
         this.setState({author: '', text: ''});
     },
     render: function() {
         return (
-            <form className="commentForm" onSubmit={this.handleSubmit}>
+            <form className="textbookForm" onSubmit={this.handleSubmit}>
                 <input className="ui-widget ui-corner-all" type="text" placeholder="name..."
                     value={this.state.author} onChange={this.handleAuthorChange}
                 />
-                <input className="ui-widget ui-corner-all" type="text" placeholder="comment..."
+                <input className="ui-widget ui-corner-all" type="text" placeholder="textbook..."
                     value={this.state.text} onChange={this.handleTextChange}
                 />
                 <input className="ui-button ui-widget ui-corner-all" type="submit" value="Post" />
