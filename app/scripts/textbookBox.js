@@ -1,15 +1,15 @@
 import React from 'react';
 import $ from 'jquery';
 
-import CommentList from './commentList';
-import CommentForm from './commentForm';
+import TextbookList from './textbookList';
+import TextbookForm from './textbookForm';
 import { API_URL, POLL_INTERVAL } from './global';
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {data: [], _isMounted: false};
     },
-    loadCommentsFromServer: function() {
+    loadTextbooksFromServer: function() {
         if (this.state._isMounted) {
             $.ajax({
                 url: API_URL,
@@ -24,7 +24,7 @@ module.exports = React.createClass({
                 }.bind(this));
         }
     },
-    handleCommentSubmit: function(comment) {
+    handleTextbookSubmit: function(comment) {
         var comments = this.state.data;
         comment.id = Date.now();
         var newComments = comments.concat([comment]);

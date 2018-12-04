@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Comment from './comment';
+import Textbook from './textbook';
 
 module.exports = React.createClass({
     render: function () {
