@@ -6,10 +6,15 @@ module.exports = React.createClass({
     render: function () {
         var textbookNodes = this.props.data.map(function (textbook) {
             return (
-                <Comment id={textbook.id} author={textbook.author}
+                <Textbook id={textbook.id} author={textbook.author}
                          key={textbook.id}>
-                    {textbook.text}
-                </Comment>
+                    {textbook.id}
+                    {textbook.title}
+                    {textbook.author}
+                    {textbook.price}
+                    {textbook.course}
+                    {textbook.condition}
+                </Textbook>
             );
         });
         return (
