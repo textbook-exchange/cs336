@@ -11,11 +11,10 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div className="textbook">
-                <h2 className="textbookInfo">
+                <div className="textbookInfo">
                     {this.props.author}
-                </h2>
+                </div>
                 <span dangerouslySetInnerHTML={this.rawMarkup()}/>
-                <Link to={'/' + this.props.id}>Edit</Link>
             </div>
         );
     }
