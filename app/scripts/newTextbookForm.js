@@ -6,7 +6,7 @@ import {API_URL} from './global';
 
 module.exports = React.createClass({
     getInitialState: function () {
-        return {author: '', title: '', price: '', course: '', condition: ''};
+        return {author: '', title: '', price: '', course: '', condition: 'Like New', photo: null};
     },
     handleAuthorChange: function (e) {
         this.setState({author: e.target.value});
@@ -22,6 +22,9 @@ module.exports = React.createClass({
     },
     handleConditionChange: function (e) {
         this.setState({condition: e.target.value});
+    },
+    fileConditionChange: function (e) {
+        this.setState({photo: event.target.files[0]})
     },
     contextTypes: {
         router: React.PropTypes.object
@@ -65,41 +68,63 @@ module.exports = React.createClass({
         return (
             <div>
                 <form className="textbookForm">
-                    <h1>Comment Edit - {this.props.params.id}</h1>
+                    <h1>New textbook entry form</h1>
                     <div>
+                        <label>
+                            What is the title of the book:
                         <input
                             type="text"
                             value={this.state.title}
                             onChange={this.handleTitleChange}
                         />
+                        </label>
                     </div>
                     <div>
+                        <label>
+                            Who is the author of the book:
                         <input
                             type="text"
                             value={this.state.author}
                             onChange={this.handleAuthorChange}
                         />
+                        </label>
                     </div>
                     <div>
+                        <label>
+                            What price are you selling it for:
                         <input
                             type="text"
                             value={this.state.price}
                             onChange={this.handlePriceChange}
                         />
+                        </label>
                     </div>
                     <div>
+                        <label>
+                            What course is this book for:
                         <input
                             type="text"
                             value={this.state.course}
                             onChange={this.handleCourseChange}
                         />
+                        </label>
                     </div>
                     <div>
-                        <input
-                            type="text"
-                            value={this.state.condition}
-                            onChange={this.handleConditionChange}
-                        />
+                        <label>
+                            What is the condition of the book:
+                            <select value={this.state.condition} onChange={this.handleConditionChange}>
+                                <option value="Like new">Like new</option>
+                                <option value="Lightly Used">Lightly Used</option>
+                                <option value="Used">Used</option>
+                                <option value="Trash?">Trash</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Upload a photo of your book
+                            <input type="file" onChange={this.fileConditionChange}/>
+                        </label>
                     </div>
                     <div>
                         <button type="button" onClick={this.handleTextbookFormSubmit}>Submit</button>

@@ -51,7 +51,8 @@ app.post('/api/newTextbook', function(req, res) {
         author: req.body.author,
         price: req.body.price,
         course: req.body.course,
-        condition: req.body.condition
+        condition: req.body.condition,
+        photo: req.body.photo
     };
     db.collection("textbooks").insertOne(newTextbook, function(err, result) {
         if (err) throw err;

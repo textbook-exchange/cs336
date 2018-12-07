@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import $ from 'jquery';
 
 module.exports = React.createClass({
@@ -23,15 +24,7 @@ module.exports = React.createClass({
     },
     render: function() {
         return (
-            <form className="textbookForm" onSubmit={this.handleSubmit}>
-                <input className="ui-widget ui-corner-all" type="text" placeholder="name..."
-                    value={this.state.author} onChange={this.handleAuthorChange}
-                />
-                <input className="ui-widget ui-corner-all" type="text" placeholder="textbook..."
-                    value={this.state.text} onChange={this.handleTextChange}
-                />
-                <input className="ui-button ui-widget ui-corner-all" type="submit" value="Post" />
-            </form>
-        );
+        <Link to={'/textbookForm'}>Create a new textbook</Link>
+        )
     }
 });
