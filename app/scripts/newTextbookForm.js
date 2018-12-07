@@ -46,8 +46,25 @@ module.exports = React.createClass({
             author: this.state.author.trim(),
             price: this.state.price.trim(),
             course: this.state.course.trim(),
-            condition: this.state.condition.trim()
+            condition: this.state.condition.trim(),
+            photo: this.state.photo
         };
+        // $.ajax({
+        //     url: '/api/photos',
+        //     dataType: 'binData',
+        //     type: 'POST',
+        //     data: this.state.photo
+        // })
+        //     .done(function (result) {
+        //         // this.context.router.push('/');
+        //         // this.setState({author: '', title: '', price: '', course: '', condition: ''});
+        //
+        //     }.bind(this))
+        //     .fail(function (xhr, status, errorThrown) {
+        //         this.setState({data: textbooks});
+        //         console.error(API_URL, status, errorThrown.toString());
+        //     }.bind(this));
+
         $.ajax({
             url: '/api/newTextbook',
             dataType: 'json',
@@ -56,7 +73,7 @@ module.exports = React.createClass({
         })
             .done(function (result) {
                 this.context.router.push('/');
-                // this.setState({author: '', title: '', price: '', course: '', condition: ''});
+
             }.bind(this))
             .fail(function (xhr, status, errorThrown) {
                 this.setState({data: textbooks});
@@ -71,7 +88,7 @@ module.exports = React.createClass({
                     <h1>New textbook entry form</h1>
                     <div>
                         <label>
-                            What is the title of the book:
+                            Title:
                         <input
                             type="text"
                             value={this.state.title}
@@ -81,7 +98,7 @@ module.exports = React.createClass({
                     </div>
                     <div>
                         <label>
-                            Who is the author of the book:
+                            Author:
                         <input
                             type="text"
                             value={this.state.author}
@@ -91,7 +108,7 @@ module.exports = React.createClass({
                     </div>
                     <div>
                         <label>
-                            What price are you selling it for:
+                            Price:
                         <input
                             type="text"
                             value={this.state.price}
@@ -127,7 +144,7 @@ module.exports = React.createClass({
                         </label>
                     </div>
                     <div>
-                        <button type="button" onClick={this.handleTextbookFormSubmit}>Submit</button>
+                        <button type="button" onClick={this.handleTextbookFormSubmit}>Sell Textbook</button>
                     </div>
                 </form>
                 <Link to='/'>Cancel</Link>

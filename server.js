@@ -8,7 +8,7 @@ app.set('port', (process.env.PORT || 3000));
 var MongoClient = require('mongodb').MongoClient
 var db;
 var password = process.env.MONGO_PASSWORD;
-var mongo_connection = "mongodb://cs336:" + password + "@ds249583.mlab.com:49583/cs336";
+var mongo_connection = "mongodb://cs336:" + password + "@ds127944.mlab.com:27944/photps";
 
 var APP_PATH = path.join(__dirname, 'dist');
 
@@ -44,6 +44,16 @@ app.post('/api/textbooks', function(req, res) {
       condition: req.body.condition
     })
 });
+
+// app.post('/api/photos', function(req, res) {
+//     db.collection("textbooks").insertOne(newTextbook, function(err, result) {
+//         if (err) throw err;
+//         db.collection("textbooks").find({}).toArray(function(err, textbooks) {
+//             if (err) throw err;
+//             res.json(textbooks);
+//         });
+//     });
+// });
 
 app.post('/api/newTextbook', function(req, res) {
     var newTextbook = {
@@ -100,7 +110,7 @@ app.post('/api/newTextbook', function(req, res) {
 app.use('*', express.static(APP_PATH));
 
 MongoClient.connect(mongo_connection, function (err, client) {
-    if (err) throw err
+    if (err) throw err;
 
     db = client;
     console.log('Connected to MongoDB: ' + mongo_connection);
