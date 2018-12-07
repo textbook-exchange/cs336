@@ -5,6 +5,9 @@ import $ from 'jquery';
 import {API_URL} from './global';
 
 module.exports = React.createClass({
+    getInitialState: function () {
+        return {author: '', title: '', price: '', course: '', condition: ''};
+    },
     handleAuthorChange: function (e) {
         this.setState({author: e.target.value});
     },
@@ -20,7 +23,19 @@ module.exports = React.createClass({
     handleConditionChange: function (e) {
         this.setState({condition: e.target.value});
     },
-    handleSubmit: function () {
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    handleTextbookFormSubmit: function (e) {
+        e.preventDefault();
+        var author = this.state.author.trim();
+        var title = this.state.title.trim();
+        var price = this.state.price.trim();
+        var course = this.state.course.trim();
+        var condition = this.state.condition.trim();
+        if (!title || !author || !price || !course || !condition) {
+            return;
+        }
         console.log('Running Submit Textbook');
         var textbooks = this.state.data;
         var submitComment = {
@@ -31,18 +46,20 @@ module.exports = React.createClass({
             condition: this.state.condition.trim()
         };
         $.ajax({
-            url: API_URL + "/api/newTextbook",
+            url: '/api/newTextbook',
             dataType: 'json',
             type: 'POST',
-            data: JSON.stringify(submitComment)
+            data: submitComment
         })
             .done(function (result) {
-                this.setState({data: result});
+                this.context.router.push('/');
+                // this.setState({author: '', title: '', price: '', course: '', condition: ''});
             }.bind(this))
             .fail(function (xhr, status, errorThrown) {
                 this.setState({data: textbooks});
                 console.error(API_URL, status, errorThrown.toString());
             }.bind(this));
+
     },
     render: function () {
         return (
@@ -85,7 +102,7 @@ module.exports = React.createClass({
                         />
                     </div>
                     <div>
-                        <button type="button" onClick={this.handleSubmit}>Submit</button>
+                        <button type="button" onClick={this.handleTextbookFormSubmit}>Submit</button>
                     </div>
                 </form>
                 <Link to='/'>Cancel</Link>
