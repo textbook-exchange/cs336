@@ -33,7 +33,7 @@ module.exports = React.createClass({
             url: API_URL,
             dataType: 'json',
             type: 'POST',
-            data: textbook,
+            data: textbook
         })
          .done(function(result){
              this.setState({data: result});
