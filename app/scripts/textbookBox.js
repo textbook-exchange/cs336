@@ -5,9 +5,14 @@ import TextbookList from './textbookList';
 import TextbookForm from './textbookForm';
 import { API_URL, POLL_INTERVAL } from './global';
 
+import ReactTable from 'react-table'
+
 module.exports = React.createClass({
     getInitialState: function() {
-        return {data: [], _isMounted: false};
+        return {
+            data: [],
+            columns: [],
+            _isMounted: false};
     },
     loadTextbooksFromServer: function() {
         if (this.state._isMounted) {
@@ -35,13 +40,13 @@ module.exports = React.createClass({
             type: 'POST',
             data: textbook,
         })
-         .done(function(result){
-             this.setState({data: result});
-         }.bind(this))
-         .fail(function(xhr, status, errorThrown) {
-             this.setState({data: textbooks});
-             console.error(API_URL, status, errorThrown.toString());
-         }.bind(this));
+            .done(function(result){
+                this.setState({data: result});
+            }.bind(this))
+            .fail(function(xhr, status, errorThrown) {
+                this.setState({data: textbooks});
+                console.error(API_URL, status, errorThrown.toString());
+            }.bind(this));
     },
     componentDidMount: function() {
         this.state._isMounted = true;
@@ -58,11 +63,32 @@ module.exports = React.createClass({
     },
     render: function() {
         return (
-            <div className="textbookBox">
-                <h1>Textbooks</h1>
-                <TextbookList data={this.state.data} />
-                <TextbookForm onTextbookSubmit={this.handleTextbookSubmit} />
-            </div>
-        );
+        <div className="textbookBox">
+            <h1>Textbooks</h1>
+            <TextbookList data={this.state.data} />
+            <TextbookForm onTextbookSubmit={this.handleTextbookSubmit} />
+            <h1>Table</h1>
+        <ReactTable
+            columns={[
+                    {
+                        Header: "title",
+                        accessor: "title"
+                    },
+            {
+                Header: "id",
+                    id: "id",
+                accessor: "id"
+            },
+            {
+                Header: "author",
+                    accessor: "author"
+            }
+        ]}
+            data={this.state.data}
+            defaultPageSize={10}
+            className="-striped -highlight"
+            />
+        </div>
+    );
     }
 });
