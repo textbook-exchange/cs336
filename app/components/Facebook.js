@@ -38,6 +38,7 @@ module.exports = React.createClass({
           <img src={this.state.picture} alt={this.state.name} />
           <h2>Welcome {this.state.name}</h2>
           Email: {this.state.email}
+        <Link to={'/textbookForm'}> Sell a textbook</Link>
         </div>
       );
     } else {
@@ -54,7 +55,6 @@ module.exports = React.createClass({
     return (
       <div>
         {fbContent}
-        <Link to={'/textbookForm'}> Sell a textook</Link>
       </div>
 
       );

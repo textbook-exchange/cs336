@@ -11,10 +11,8 @@ import '../css/base.css';
 ReactDOM.render((
         <Router history={browserHistory}>
             <Route path="/" component={TextbookBox}/>
-            <Route path="/login" component={FacebookSeller}>
-              <Route path="/textbookForm" component={TextbookForm}/>
-            </ Route>
-
+            <Route path="/sell" component={FacebookSeller} />
+            <Route path="/textbookForm" component={TextbookForm}/>
         </Router>
     ), document.getElementById('content')
 );
