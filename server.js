@@ -8,7 +8,7 @@ app.set('port', (process.env.PORT || 3000));
 var MongoClient = require('mongodb').MongoClient
 var db;
 var password = process.env.MONGO_PASSWORD;
-var mongo_connection = "mongodb://cs336:" + password + "@ds127944.mlab.com:27944/photps";
+var mongo_connection = "mongodb://cs336:" + password + "@ds249583.mlab.com:49583/cs336";
 
 var APP_PATH = path.join(__dirname, 'dist');
 
