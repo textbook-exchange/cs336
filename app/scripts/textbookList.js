@@ -18,11 +18,9 @@ module.exports = React.createClass({
             );
         });
         return (
-            <div className="textbookHeader">
             <div className="textbookList">
                 {textbookNodes}
             </div>
-        </div>
         );
     }
 });
