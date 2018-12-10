@@ -1,8 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
+import {Link} from 'react-router';
 
 import TextbookList from './textbookList';
-import TextbookForm from './textbookForm';
 import { API_URL, POLL_INTERVAL } from './global';
 
 module.exports = React.createClass({
@@ -61,7 +61,7 @@ module.exports = React.createClass({
             <div className="textbookBox">
                 <h1>Textbooks</h1>
                 <TextbookList data={this.state.data} />
-                <TextbookForm onTextbookSubmit={this.handleTextbookSubmit} />
+                <Link to={'/textbookForm'}>Create a new textbook</Link>
             </div>
         );
     }

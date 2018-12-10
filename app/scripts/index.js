@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Router, Route, browserHistory} from 'react-router';
 
 import TextbookBox from './textbookBox';
-import TextbookForm from './newTextbookForm';
+import TextbookForm from './textbookForm';
 
 import '../css/base.css';
 
