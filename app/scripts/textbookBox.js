@@ -61,7 +61,12 @@ module.exports = React.createClass({
             <div className="textbookBox">
                 <h1>Textbooks</h1>
                 <TextbookList data={this.state.data} />
-                <Link to={'/textbookForm'}>Create a new textbook</Link>
+
+                <Link to={'/textbookForm'}>
+                    <button type="button">
+                        Create a new textbook
+                    </button>
+                </Link>
             </div>
         );
     }

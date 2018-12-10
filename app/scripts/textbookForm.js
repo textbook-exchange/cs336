@@ -147,7 +147,11 @@ module.exports = React.createClass({
                         <button type="button" onClick={this.handleTextbookFormSubmit}>Sell Textbook</button>
                     </div>
                 </form>
-                <Link to='/'>Cancel</Link>
+                <Link to='/'>
+                    <button type="button">
+                        Cancel
+                    </button>
+                </Link>
             </div>
         );
     }
