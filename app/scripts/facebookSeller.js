@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 import '../css/base.css';
 
-import Facebook from './components/Facebook';
-
+import Facebook from '../components/Facebook';
 import Remarkable from 'remarkable';
 
 module.exports = React.createClass({
@@ -17,9 +16,9 @@ module.exports = React.createClass({
             <div className="login">
                 <div className="fbLogin">
                     <h1>Facebook Auth Example</h1>
+                    <p> to get started, authenticate with Facebook.</p>
+                    <Facebook />
                 </div>
-                <p> to get started, authenticate with Facebook.</p>
-                <Facebook />
             </div>
         );
     }

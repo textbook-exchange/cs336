@@ -1,23 +1,24 @@
 import React, { Component } from "react";
 import FacebookLogin from "react-facebook-login";
+import {Link} from 'react-router';
 
 module.exports = React.createClass({
     getInitialState: function() {
         return {data: { isLoggedIn: false, userID: "", name: "", email: "", picture: "" }
-        , _isMounted: false};
+                , _isMounted: false};
     },
 
   responseFacebook: function(response){
     // console.log(response);
-  this.setState({data: newTextbooks});
-      this.setState({data: {
-        isLoggedIn: true,
-        userID: response.userID,
-        name: response.name,
-        email: response.email,
-        picture: response.picture.data.url}
-      });
-    },
+
+    this.setState({
+      isLoggedIn: true,
+      userID: response.userID,
+      name: response.name,
+      email: response.email,
+      picture: response.picture.data.url
+    });
+  },
 
   componentClicked: function(){ console.log("clicked") },
 
@@ -50,6 +51,12 @@ module.exports = React.createClass({
         />
       );
     }
-    return <div>{fbContent}</div>;
+    return (
+      <div>
+        {fbContent}
+        <Link to={'/textbookForm'}> Sell a textook</Link>
+      </div>
+
+      );
   }
 });
