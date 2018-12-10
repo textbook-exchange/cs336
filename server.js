@@ -45,6 +45,34 @@ app.post('/api/textbooks', function(req, res) {
     })
 });
 
+// app.post('/api/photos', function(req, res) {
+//     db.collection("textbooks").insertOne(newTextbook, function(err, result) {
+//         if (err) throw err;
+//         db.collection("textbooks").find({}).toArray(function(err, textbooks) {
+//             if (err) throw err;
+//             res.json(textbooks);
+//         });
+//     });
+// });
+
+app.post('/api/newTextbook', function(req, res) {
+    var newTextbook = {
+        title: req.body.title,
+        author: req.body.author,
+        price: req.body.price,
+        course: req.body.course,
+        condition: req.body.condition,
+        photo: req.body.photo
+    };
+    db.collection("textbooks").insertOne(newTextbook, function(err, result) {
+        if (err) throw err;
+        db.collection("textbooks").find({}).toArray(function(err, textbooks) {
+            if (err) throw err;
+            res.json(textbooks);
+        });
+    });
+});
+
 // app.get('/api/comments/:id', function(req, res) {
 //     db.collection("textbooks").find({"id": Number(req.params.id)}).toArray(function(err, docs) {
 //         if (err) throw err;
@@ -82,7 +110,7 @@ app.post('/api/textbooks', function(req, res) {
 app.use('*', express.static(APP_PATH));
 
 MongoClient.connect(mongo_connection, function (err, client) {
-    if (err) throw err
+    if (err) throw err;
 
     db = client;
     console.log('Connected to MongoDB: ' + mongo_connection);
