@@ -36,7 +36,8 @@ module.exports = React.createClass({
         var price = this.state.price.trim();
         var course = this.state.course.trim();
         var condition = this.state.condition.trim();
-        if (!title || !author || !price || !course || !condition) {
+        var seller = this.state.seller;
+        if (!title || !author || !price || !course || !condition || !seller) {
             return;
         }
         console.log('Running Submit Textbook');

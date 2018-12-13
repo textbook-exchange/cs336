@@ -3,14 +3,13 @@ import FacebookLogin from "react-facebook-login";
 import {Link} from 'react-router';
 
 module.exports = React.createClass({
-    getInitialState: function() {
-        return {data: { isLoggedIn: false, userID: "", name: "", email: "", picture: "" }
-                , _isMounted: false};
-    },
+  getInitialState: function() {
+      return {data: { isLoggedIn: false, userID: "", name: "", email: "", picture: "" }
+              , _isMounted: false};
+  },
 
   responseFacebook: function(response){
     // console.log(response);
-
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
