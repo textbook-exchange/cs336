@@ -101,7 +101,7 @@ module.exports = React.createClass({
             <div>
                 <h1>Textbooks</h1>
                 Search: <input value={this.state.search} onChange={this.handleSearchBarChange}/>
-                <ReactTable data={this.state.data} columns={this.state.columns}/>
+                <ReactTable data={this.state.data} columns={this.state.columns} defaultPageSize={10}/>
                 <Link to={'/textbookForm'}>
                     <button type="button">
                         Create a new textbook

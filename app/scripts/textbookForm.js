@@ -87,7 +87,7 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div className="container">
-                <h1>New textbook entry form</h1>
+                <h1>Enter a New Textbook</h1>
                 <form className="textbookForm">
                     <div className="labelobj">
                         <label>
