@@ -13,6 +13,7 @@ module.exports = React.createClass({
             <div>
                 <div>
                 </div>
+                <img style={{width: 60, height: 60}} src={this.props.photo.toString()}/>
                 <span dangerouslySetInnerHTML={this.rawMarkup()}/>
             </div>
         );

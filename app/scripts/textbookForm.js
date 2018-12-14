@@ -2,13 +2,24 @@ import React from 'react';
 import {Link} from 'react-router';
 import $ from 'jquery';
 
+
 import '../css/base.css';
 
 import {API_URL} from './global';
 
 module.exports = React.createClass({
     getInitialState: function () {
-        return {author: '', title: '', price: '', course: '', condition: 'Like New', photo: null};
+        return {author: '', title: '', price: '', course: '', condition: 'Like New', photo: ''};
+    },
+    getBase64(file, cb) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            cb(reader.result)
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
     },
     handleAuthorChange: function (e) {
         this.setState({author: e.target.value});
@@ -26,7 +37,12 @@ module.exports = React.createClass({
         this.setState({condition: e.target.value});
     },
     fileConditionChange: function (e) {
-        this.setState({photo: event.target.files[0]})
+        this.getBase64(e.target.files[0], (result) => {
+            this.setState({photo: result})
+        });
+    },
+    handleCancelButton: function (e) {
+        this.context.router.push('/');
     },
     contextTypes: {
         router: React.PropTypes.object
@@ -38,8 +54,8 @@ module.exports = React.createClass({
         var price = this.state.price.trim();
         var course = this.state.course.trim();
         var condition = this.state.condition.trim();
-        var seller = this.state.seller;
-        if (!title || !author || !price || !course || !condition || !seller) {
+        // var seller = this.state.seller;
+        if (!title || !author || !price || !course || !condition) {
             return;
         }
         console.log('Running Submit Textbook');
@@ -50,23 +66,8 @@ module.exports = React.createClass({
             price: this.state.price.trim(),
             course: this.state.course.trim(),
             condition: this.state.condition.trim(),
-            photo: this.state.photo
+            photo: this.state.photo.trim()
         };
-        // $.ajax({
-        //     url: '/api/photos',
-        //     dataType: 'binData',
-        //     type: 'POST',
-        //     data: this.state.photo
-        // })
-        //     .done(function (result) {
-        //         // this.context.router.push('/');
-        //         // this.setState({author: '', title: '', price: '', course: '', condition: ''});
-        //
-        //     }.bind(this))
-        //     .fail(function (xhr, status, errorThrown) {
-        //         this.setState({data: textbooks});
-        //         console.error(API_URL, status, errorThrown.toString());
-        //     }.bind(this));
 
         $.ajax({
             url: '/api/newTextbook',
@@ -76,7 +77,6 @@ module.exports = React.createClass({
         })
             .done(function (result) {
                 this.context.router.push('/');
-
             }.bind(this))
             .fail(function (xhr, status, errorThrown) {
                 this.setState({data: textbooks});
@@ -87,12 +87,12 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div className="container">
-                <h1>New textbook entry form</h1>
+                <h1>Enter a New Textbook</h1>
                 <form className="textbookForm">
                     <div className="labelobj">
                         <label>
                             Title:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.title}
                             onChange={this.handleTitleChange}
@@ -102,7 +102,7 @@ module.exports = React.createClass({
                     <div className="labelobj">
                         <label>
                             Author:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.author}
                             onChange={this.handleAuthorChange}
@@ -112,7 +112,7 @@ module.exports = React.createClass({
                     <div className="labelobj">
                         <label>
                             Price:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.price}
                             onChange={this.handlePriceChange}
@@ -122,7 +122,7 @@ module.exports = React.createClass({
                     <div className="labelobj">
                         <label>
                             What course is this book for:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.course}
                             onChange={this.handleCourseChange}
@@ -133,10 +133,10 @@ module.exports = React.createClass({
                         <label>
                             What is the condition of the book:
                             <select value={this.state.condition} onChange={this.handleConditionChange}>
-                                <option value="Like new">Like new</option>
-                                <option value="Lightly Used">Lightly Used</option>
-                                <option value="Used">Used</option>
-                                <option value="Trash?">Trash</option>
+                                <option value="Great">Great</option>
+                                <option value="Good">Good</option>
+                                <option value="Okay">Okay</option>
+                                <option value="Bad">Bad</option>
                             </select>
                         </label>
                     </div>
@@ -145,13 +145,14 @@ module.exports = React.createClass({
                             Upload a photo of your book:
                             <input type="file" onChange={this.fileConditionChange}/>
                         </label>
+                        <img style={{width: 50, height: 50}} src={this.state.photo.toString()}/>
                     </div>
                     <div>
                         <button type="button" onClick={this.handleTextbookFormSubmit} className="labelobj">Sell Textbook</button>
                     </div>
                 </form>
                 <Link to='/'>
-                    <button type="button" className="labelobj">
+                    <button type="button" onClick={this.handleCancelButton} className="labelobj">
                         Cancel
                     </button>
                 </Link>

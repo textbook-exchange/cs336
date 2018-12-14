@@ -1,16 +1,50 @@
 import React from 'react';
 import $ from 'jquery';
-import {Link} from 'react-router';
+import {Link} from 'react-router'
 
 import Facebook from '../components/Facebook';
 import Nav from './nav';
 import { API_URL, POLL_INTERVAL } from './global';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
+import Mailto from 'react-mailto';
 
 module.exports = React.createClass({
-    getInitialState: function() {
-        return {data: [], user: [], _hasUser: false, _isMounted: false};
+    getInitialState: function () {
+        return {
+            search: '',
+            data: [],
+            user: [], _hasUser: false, //to save information from fb
+            columns: [
+                {
+                    Header: 'author',
+                    accessor: 'author'
+                }, {
+                    Header: 'photo',
+                    Cell: (row) => {
+                        return <div><img height={50} src={row.original.photo}/></div>
+                    },
+                }, {
+                    Header: 'title',
+                    accessor: 'title',
+                }, {
+                    Header: 'price',
+                    accessor: 'price',
+                }, {
+                    Header: 'course',
+                    accessor: 'course',
+                }, {
+                    Header: 'condition',
+                    accessor: 'condition',
+                }, {
+                    Header: 'email',
+                    accessor: 'email',
+                    Cell: e => <Mailto email={e.value} obfuscate={true}> {e.value} </Mailto>
+                }]
+            , _isMounted: false
+        };
     },
-    loadTextbooksFromServer: function() {
+    loadTextbooksFromServer: function () {
         if (this.state._isMounted) {
             $.ajax({
                 url: API_URL,
@@ -18,14 +52,22 @@ module.exports = React.createClass({
                 cache: false,
             })
                 .done(function (result) {
-                    this.setState({data: result});
+                    if (this.state.search) {
+                        var searchResult = result.filter(row => {
+                            return row.title.includes(this.state.search) || row.author.includes(this.state.search) || row.course.includes(this.state.search)
+                        })
+                    }
+                    else{
+                        var searchResult = result;
+                    }
+                    this.setState({data: searchResult});
                 }.bind(this))
                 .fail(function (xhr, status, errorThrown) {
                     console.error(API_URL, status, errorThrown.toString());
                 }.bind(this));
         }
     },
-    handleTextbookSubmit: function(textbook) {
+    handleTextbookSubmit: function (textbook) {
         var textbooks = this.state.data;
         textbook.id = Date.now();
         var newTextbooks = textbooks.concat([textbook]);
@@ -36,20 +78,20 @@ module.exports = React.createClass({
             type: 'POST',
             data: textbook
         })
-         .done(function(result){
-             this.setState({data: result});
-         }.bind(this))
-         .fail(function(xhr, status, errorThrown) {
-             this.setState({data: textbooks});
-             console.error(API_URL, status, errorThrown.toString());
-         }.bind(this));
+            .done(function (result) {
+                this.setState({data: result});
+            }.bind(this))
+            .fail(function (xhr, status, errorThrown) {
+                this.setState({data: textbooks});
+                console.error(API_URL, status, errorThrown.toString());
+            }.bind(this));
     },
-    componentDidMount: function() {
+    componentDidMount: function () {
         this.state._isMounted = true;
         this.loadTextbooksFromServer();
         setInterval(this.loadTextbooksFromServer, POLL_INTERVAL);
     },
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         // Reset the isMounted flag so that the loadTextbooksFromServer callback
         // stops requesting state updates when the textbookList has been unmounted.
         // This switch is optional, but it gets rid of the warning triggered by
@@ -66,20 +108,30 @@ module.exports = React.createClass({
         console.log(this.state._hasUser);
         this.loadTextbooksFromServer();
     },
+    handleSearchBarChange: function(e) {
+        e.preventDefault();
+        this.setState({search: e.target.value});
+    },
     render: function() {
         let main;
         if (this.state._hasUser) {
             main =(
                 <div>
-                    <h1>This is main for Textbook Exchange when there is a user</h1>
+                    <h1>Textbooks</h1>
+                    <h2>This is main for Textbook Exchange when there is a user</h2>
+                    Search: <input value={this.state.search} onChange={this.handleSearchBarChange}/>
+                    <ReactTable data={this.state.data} columns={this.state.columns} defaultPageSize={10}/>
                     <Link to={'/textbookForm'}>
                         <button type="button">
-                            Create a new textbook (kevin)
+                            Create a new textbook
                         </button>
                     </Link>
-                    
-                </div>
-            );
+                    <Link to={'/sell'}>
+                        <button type="button">
+                            Login
+                        </button>
+                    </Link>
+            </div> );
         } else {
             main = <Facebook onAuthenticated={this.handleAuthentication} />;
         }

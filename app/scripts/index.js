@@ -6,8 +6,6 @@ import TextbookBox from './textbookBox';
 import TextbookForm from './textbookForm';
 // import Nav from './nav';
 
-import '../css/base.css';
-
 ReactDOM.render((
         <Router history={browserHistory}>
             {/* <IndexRoute component={Home} /> */}
