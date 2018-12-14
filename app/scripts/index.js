@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, browserHistory} from 'react-router';
 
-import CommentBox from './commentBox';
-import CommentEdit from './commentEdit';
-
-import '../css/base.css';
+import TextbookBox from './textbookBox';
+import FacebookSeller from './facebookSeller';
+import TextbookForm from './textbookForm';
 
 ReactDOM.render((
         <Router history={browserHistory}>
-            <Route path="/" component={CommentBox}/>
-            <Route path="/:id" component={CommentEdit}/>
+            <Route path="/" component={TextbookBox}/>
+            <Route path="/sell" component={FacebookSeller} />
+            <Route path="/textbookForm" component={TextbookForm}/>
         </Router>
     ), document.getElementById('content')
 );

@@ -12,8 +12,14 @@ module.exports = {
     },
     module: {
         loaders: [
+            {
+                test: /\.(s*)css$/,
+                loaders: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            },
             { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
-            { test: /\.css$/,  loader: 'style!css?modules!postcss' }
         ]
     },
     // Use the template html file in /app

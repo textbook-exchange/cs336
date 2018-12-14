@@ -1,6 +1,6 @@
 {
-  "name": "unit13-router",
-  "author": "kvlinden",
+  "name": "textbook-exchange",
+  "author": "quentin, kevin, judy",
   "version": "0.0.0",
   "description": "Router-enhanced version of the Facebook tutorial",
   "license": "ISC",
@@ -23,20 +23,31 @@
     "postcss-loader": "^1.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-facebook-login": "^4.1.1",
     "react-router": "^3.0.0",
+    "react-table": "^6.8.6",
     "remarkable": "^1.7.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^3.1.10"
   },
   "scripts": {
     "build": "webpack --progress",
+    "buildDev": "webpack --progress & nodemon --ignore app/ server.js & webpack-dev-server --progress &",
     "stop": "kill $(pgrep node)",
     "dev": "nodemon --ignore app/ server.js & webpack-dev-server --progress &",
     "install": "webpack --progress --config ./webpack.production.config.js",
     "start": "node server.js"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/textbook-exchange/textbook-exchange.git"
+  },
+  "bugs": {
+    "url": "https://github.com/textbook-exchange/textbook-exchange/issues"
+  },
+  "homepage": "https://github.com/textbook-exchange/textbook-exchange#readme"
 }

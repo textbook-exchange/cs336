@@ -34,23 +34,35 @@ app.get('/api/textbooks', function(req, res) {
     });
 });
 
-app.post('/api/textbooks', function(req, res) {
-    // Lab 10 - MongoDB commands
-    db.collection('textbooks').insertOne({
-      title: req.body.title,
-      author: req.body.author,
-      price: req.body.price,
-      course: req.body.course,
-      condition: req.body.condition
-    })
-});
-
-// app.get('/api/comments/:id', function(req, res) {
-//     db.collection("textbooks").find({"id": Number(req.params.id)}).toArray(function(err, docs) {
+// app.post('/api/photos', function(req, res) {
+//     db.collection("textbooks").insertOne(newTextbook, function(err, result) {
 //         if (err) throw err;
-//         res.json(docs);
+//         db.collection("textbooks").find({}).toArray(function(err, textbooks) {
+//             if (err) throw err;
+//             res.json(textbooks);
+//         });
 //     });
 // });
+
+app.post('/api/newTextbook', function(req, res) {
+    var newTextbook = {
+        title: req.body.title,
+        author: req.body.author,
+        price: req.body.price,
+        course: req.body.course,
+        condition: req.body.condition,
+        photo: req.body.photo
+    };
+    db.collection("textbooks").insertOne(newTextbook, function(err, result) {
+        if (err) throw err;
+        db.collection("textbooks").find({}).toArray(function(err, textbooks) {
+            if (err) throw err;
+            res.json(textbooks);
+        });
+    });
+});
+
+
 
 // app.put('/api/comments/:id', function(req, res) {
 //     var updateId = Number(req.params.id);
@@ -82,7 +94,7 @@ app.post('/api/textbooks', function(req, res) {
 app.use('*', express.static(APP_PATH));
 
 MongoClient.connect(mongo_connection, function (err, client) {
-    if (err) throw err
+    if (err) throw err;
 
     db = client;
     console.log('Connected to MongoDB: ' + mongo_connection);

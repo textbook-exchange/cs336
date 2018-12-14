@@ -1,6 +1,6 @@
 import React from 'react';
 import Remarkable from 'remarkable';
-import {Link} from 'react-router';
+import {Link} from 'react-router'
 
 module.exports = React.createClass({
     rawMarkup: function () {
@@ -10,12 +10,11 @@ module.exports = React.createClass({
     },
     render: function () {
         return (
-            <div className="comment">
-                <h2 className="commentAuthor">
-                    {this.props.author}
-                </h2>
+            <div>
+                <div>
+                </div>
+                <img style={{width: 60, height: 60}} src={this.props.photo.toString()}/>
                 <span dangerouslySetInnerHTML={this.rawMarkup()}/>
-                <Link to={'/' + this.props.id}>Edit</Link>
             </div>
         );
     }
