@@ -34,17 +34,6 @@ app.get('/api/textbooks', function(req, res) {
     });
 });
 
-app.post('/api/textbooks', function(req, res) {
-    // Lab 10 - MongoDB commands
-    db.collection('textbooks').insertOne({
-      title: req.body.title,
-      author: req.body.author,
-      price: req.body.price,
-      course: req.body.course,
-      condition: req.body.condition
-    })
-});
-
 // app.post('/api/photos', function(req, res) {
 //     db.collection("textbooks").insertOne(newTextbook, function(err, result) {
 //         if (err) throw err;
@@ -73,12 +62,7 @@ app.post('/api/newTextbook', function(req, res) {
     });
 });
 
-// app.get('/api/comments/:id', function(req, res) {
-//     db.collection("textbooks").find({"id": Number(req.params.id)}).toArray(function(err, docs) {
-//         if (err) throw err;
-//         res.json(docs);
-//     });
-// });
+
 
 // app.put('/api/comments/:id', function(req, res) {
 //     var updateId = Number(req.params.id);

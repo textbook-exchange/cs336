@@ -64,9 +64,10 @@ module.exports = React.createClass({
 
                 <Link to={'/textbookForm'}>
                     <button type="button">
-                        Create a new textbook
+                        Create a new textbook (kevin)
                     </button>
                 </Link>
+                <Link to={'/sell'}>Login, link created by judy</Link>
             </div>
         );
     }
