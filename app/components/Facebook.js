@@ -9,7 +9,14 @@ module.exports = React.createClass({
   },
 
   responseFacebook: function(response){
-    // console.log(response);
+    console.log(response);
+    var user = {
+      isLoggedIn: true,
+      userID: response.userID,
+      name: response.name,
+      email: response.email,
+      picture: response.picture.data.url
+    };
     this.setState({
       isLoggedIn: true,
       userID: response.userID,
@@ -17,6 +24,7 @@ module.exports = React.createClass({
       email: response.email,
       picture: response.picture.data.url
     });
+    this.props.onAuthenticated({user});
   },
 
   componentClicked: function(){ console.log("clicked") },
