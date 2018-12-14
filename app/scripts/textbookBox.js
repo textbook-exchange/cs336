@@ -117,7 +117,6 @@ module.exports = React.createClass({
                         Login
                     </button>
                 </Link>
-                <ReactTable data={this.state.data} columns={this.state.columns}/>
         </div>
         );
     }
