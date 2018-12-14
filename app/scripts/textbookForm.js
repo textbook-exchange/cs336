@@ -92,7 +92,7 @@ module.exports = React.createClass({
                     <div className="labelobj">
                         <label>
                             Title:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.title}
                             onChange={this.handleTitleChange}
@@ -102,7 +102,7 @@ module.exports = React.createClass({
                     <div className="labelobj">
                         <label>
                             Author:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.author}
                             onChange={this.handleAuthorChange}
@@ -112,7 +112,7 @@ module.exports = React.createClass({
                     <div className="labelobj">
                         <label>
                             Price:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.price}
                             onChange={this.handlePriceChange}
@@ -122,7 +122,7 @@ module.exports = React.createClass({
                     <div className="labelobj">
                         <label>
                             What course is this book for:
-                        <br/><input
+                        <input
                             type="text"
                             value={this.state.course}
                             onChange={this.handleCourseChange}

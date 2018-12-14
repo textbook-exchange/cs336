@@ -2,12 +2,34 @@ import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router';
 
-import TextbookList from './textbookList';
 import { API_URL, POLL_INTERVAL } from './global';
+import ReactTable from "react-table";
+import 'react-table/react-table.css'
 
 module.exports = React.createClass({
     getInitialState: function() {
-        return {data: [], _isMounted: false};
+        return {
+            data: [],
+            columns: [
+                {
+                    Header: 'author',
+                    accessor: 'author' // String-based value accessors!
+                }, {
+                    Header: 'title',
+                    accessor: 'title',
+                }, {
+                    Header: 'price',
+                    accessor: 'price',
+                }, {
+                    Header: 'course',
+                    accessor: 'course',
+                }, {
+                    Header: 'condition',
+                    accessor: 'condition',
+                    Cell: e =><a href={e.value}> {e.value} </a>
+                }
+            ]
+            , _isMounted: false};
     },
     loadTextbooksFromServer: function() {
         if (this.state._isMounted) {
@@ -60,8 +82,7 @@ module.exports = React.createClass({
         return (
             <div>
                 <h1>Textbooks</h1>
-                <TextbookList data={this.state.data} />
-
+                <ReactTable data={this.state.data} columns={this.state.columns}/>
                 <Link to={'/textbookForm'}>
                     <button type="button">
                         Create a new textbook (kevin)
@@ -72,7 +93,7 @@ module.exports = React.createClass({
                         Login, link created by judy
                     </button>
                 </Link>
-            </div>
+        </div>
         );
     }
 });
