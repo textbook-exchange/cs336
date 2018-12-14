@@ -14,7 +14,7 @@ module.exports = React.createClass({
         return (
             <div>
                 <div>
-                    <h1>Facebook Auth Example</h1>
+                    <h1>Facebook Login</h1>
                     <p> to get started, authenticate with Facebook.</p>
                     <Facebook />
                 </div>
