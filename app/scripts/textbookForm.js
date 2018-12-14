@@ -1,6 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router';
 import $ from 'jquery';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 
 import {API_URL} from './global';
 
@@ -87,14 +92,13 @@ module.exports = React.createClass({
                 <form className="textbookForm">
                     <h1>New textbook entry form</h1>
                     <div>
-                        <label>
-                            Title:
-                        <input
-                            type="text"
-                            value={this.state.title}
-                            onChange={this.handleTitleChange}
+                        <TextField
+                            id="standard-name"
+                            label="Name"
+                            value={this.state.author}
+                            onChange={this.handleAuthorChange('name')}
+                            margin="normal"
                         />
-                        </label>
                     </div>
                     <div>
                         <label>

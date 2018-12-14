@@ -27,7 +27,9 @@
     "react-router": "^3.0.0",
     "remarkable": "^1.7.1",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.3"
+    "webpack": "^1.13.3",
+    "prop-types": "15.6.2",
+    "classnames": "2.2.6"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
