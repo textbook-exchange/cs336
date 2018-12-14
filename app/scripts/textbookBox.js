@@ -15,6 +15,11 @@ module.exports = React.createClass({
                     Header: 'author',
                     accessor: 'author' // String-based value accessors!
                 }, {
+                    Header: 'photo',
+                    Cell: (row) => {
+                        return <div><img height={50} src={row.original.photo}/></div>
+                    },
+                }, {
                     Header: 'title',
                     accessor: 'title',
                 }, {
@@ -82,17 +87,17 @@ module.exports = React.createClass({
         return (
             <div>
                 <h1>Textbooks</h1>
-                <ReactTable data={this.state.data} columns={this.state.columns}/>
                 <Link to={'/textbookForm'}>
                     <button type="button">
-                        Create a new textbook (kevin)
+                        Create a new textbook
                     </button>
                 </Link>
                 <Link to={'/sell'}>
                     <button type="button">
-                        Login, link created by judy
+                        Login
                     </button>
                 </Link>
+                <ReactTable data={this.state.data} columns={this.state.columns}/>
         </div>
         );
     }
