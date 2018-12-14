@@ -1,6 +1,6 @@
 import React from 'react';
 import Remarkable from 'remarkable';
-import {Link} from 'react-router';
+import {Link} from 'react-router'
 
 module.exports = React.createClass({
     rawMarkup: function () {
@@ -10,9 +10,8 @@ module.exports = React.createClass({
     },
     render: function () {
         return (
-            <div className="textbook">
-                <div className="textbookInfo">
-                    {this.props.author}
+            <div>
+                <div>
                 </div>
                 <span dangerouslySetInnerHTML={this.rawMarkup()}/>
             </div>

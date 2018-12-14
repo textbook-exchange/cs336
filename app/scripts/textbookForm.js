@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import $ from 'jquery';
 
+import '../css/base.css';
+
 import {API_URL} from './global';
 
 module.exports = React.createClass({
@@ -84,50 +86,50 @@ module.exports = React.createClass({
     },
     render: function () {
         return (
-            <div>
+            <div className="container">
+                <h1>New textbook entry form</h1>
                 <form className="textbookForm">
-                    <h1>New textbook entry form</h1>
-                    <div>
+                    <div className="labelobj">
                         <label>
                             Title:
-                        <input
+                        <br/><input
                             type="text"
                             value={this.state.title}
                             onChange={this.handleTitleChange}
                         />
                         </label>
                     </div>
-                    <div>
+                    <div className="labelobj">
                         <label>
                             Author:
-                        <input
+                        <br/><input
                             type="text"
                             value={this.state.author}
                             onChange={this.handleAuthorChange}
                         />
                         </label>
                     </div>
-                    <div>
+                    <div className="labelobj">
                         <label>
                             Price:
-                        <input
+                        <br/><input
                             type="text"
                             value={this.state.price}
                             onChange={this.handlePriceChange}
                         />
                         </label>
                     </div>
-                    <div>
+                    <div className="labelobj">
                         <label>
                             What course is this book for:
-                        <input
+                        <br/><input
                             type="text"
                             value={this.state.course}
                             onChange={this.handleCourseChange}
                         />
                         </label>
                     </div>
-                    <div>
+                    <div className="labelobj">
                         <label>
                             What is the condition of the book:
                             <select value={this.state.condition} onChange={this.handleConditionChange}>
@@ -138,18 +140,18 @@ module.exports = React.createClass({
                             </select>
                         </label>
                     </div>
-                    <div>
+                    <div className="labelobj">
                         <label>
-                            Upload a photo of your book
+                            Upload a photo of your book:
                             <input type="file" onChange={this.fileConditionChange}/>
                         </label>
                     </div>
                     <div>
-                        <button type="button" onClick={this.handleTextbookFormSubmit}>Sell Textbook</button>
+                        <button type="button" onClick={this.handleTextbookFormSubmit} className="labelobj">Sell Textbook</button>
                     </div>
                 </form>
                 <Link to='/'>
-                    <button type="button">
+                    <button type="button" className="labelobj">
                         Cancel
                     </button>
                 </Link>

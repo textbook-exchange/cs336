@@ -4,6 +4,7 @@ import '../css/base.css';
 
 import Facebook from '../components/Facebook';
 import Remarkable from 'remarkable';
+import {Link} from "react-router";
 
 module.exports = React.createClass({
     rawMarkup: function () {
@@ -13,12 +14,17 @@ module.exports = React.createClass({
     },
     render: function () {
         return (
-            <div className="login">
-                <div className="fbLogin">
+            <div>
+                <div>
                     <h1>Facebook Auth Example</h1>
                     <p> to get started, authenticate with Facebook.</p>
                     <Facebook />
                 </div>
+                <Link to='/'>
+                    <button type="button">
+                        Cancel
+                    </button>
+                </Link>
             </div>
         );
     }
