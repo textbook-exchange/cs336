@@ -133,10 +133,10 @@ module.exports = React.createClass({
                         <label>
                             What is the condition of the book:
                             <select value={this.state.condition} onChange={this.handleConditionChange}>
-                                <option value="Like new">Like new</option>
-                                <option value="Lightly Used">Lightly Used</option>
-                                <option value="Used">Used</option>
-                                <option value="Trash?">Trash</option>
+                                <option value="Great">Great</option>
+                                <option value="Good">Good</option>
+                                <option value="Okay">Okay</option>
+                                <option value="Bad">Bad</option>
                             </select>
                         </label>
                     </div>
@@ -145,6 +145,7 @@ module.exports = React.createClass({
                             Upload a photo of your book:
                             <input type="file" onChange={this.fileConditionChange}/>
                         </label>
+                        <img style={{width: 50, height: 50}} src={this.state.photo.toString()}/>
                     </div>
                     <div>
                         <button type="button" onClick={this.handleTextbookFormSubmit} className="labelobj">Sell Textbook</button>
