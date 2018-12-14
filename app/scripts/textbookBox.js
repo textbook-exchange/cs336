@@ -58,7 +58,7 @@ module.exports = React.createClass({
     },
     render: function() {
         return (
-            <div className="textbookBox">
+            <div>
                 <h1>Textbooks</h1>
                 <TextbookList data={this.state.data} />
 
@@ -67,7 +67,11 @@ module.exports = React.createClass({
                         Create a new textbook (kevin)
                     </button>
                 </Link>
-                <Link to={'/sell'}>Login, link created by judy</Link>
+                <Link to={'/sell'}>
+                    <button type="button">
+                        Login, link created by judy
+                    </button>
+                </Link>
             </div>
         );
     }
