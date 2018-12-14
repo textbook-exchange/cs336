@@ -91,7 +91,7 @@ module.exports = React.createClass({
                 <form className="textbookForm">
                     <div className="labelobj">
                         <label>
-                            Title:
+                            Title: 
                         <input
                             type="text"
                             value={this.state.title}
@@ -101,7 +101,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="labelobj">
                         <label>
-                            Author:
+                            Author: 
                         <input
                             type="text"
                             value={this.state.author}
@@ -111,7 +111,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="labelobj">
                         <label>
-                            Price:
+                            Price: 
                         <input
                             type="text"
                             value={this.state.price}
@@ -121,7 +121,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="labelobj">
                         <label>
-                            What course is this book for:
+                            Course: 
                         <input
                             type="text"
                             value={this.state.course}
@@ -131,7 +131,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="labelobj">
                         <label>
-                            What is the condition of the book:
+                            Condition: 
                             <select value={this.state.condition} onChange={this.handleConditionChange}>
                                 <option value="Great">Great</option>
                                 <option value="Good">Good</option>
@@ -142,7 +142,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="labelobj">
                         <label>
-                            Upload a photo of your book:
+                            Photo: 
                             <input type="file" onChange={this.fileConditionChange}/>
                         </label>
                         <img style={{width: 50, height: 50}} src={this.state.photo.toString()}/>
