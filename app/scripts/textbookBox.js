@@ -5,6 +5,7 @@ import {Link} from 'react-router';
 import { API_URL, POLL_INTERVAL } from './global';
 import ReactTable from "react-table";
 import 'react-table/react-table.css'
+import Mailto from 'react-mailto'
 
 module.exports = React.createClass({
     getInitialState: function() {
@@ -13,7 +14,7 @@ module.exports = React.createClass({
             columns: [
                 {
                     Header: 'author',
-                    accessor: 'author' // String-based value accessors!
+                    accessor: 'author'
                 }, {
                     Header: 'title',
                     accessor: 'title',
@@ -26,7 +27,12 @@ module.exports = React.createClass({
                 }, {
                     Header: 'condition',
                     accessor: 'condition',
-                    Cell: e =><a href={e.value}> {e.value} </a>
+                }, {
+                    Header: 'email',
+                    accessor: 'email',
+                    Cell: e => {
+                        return <Mailto email={e.value} obfuscate={false}> {e.value} </Mailto>
+                        }
                 }
             ]
             , _isMounted: false};
