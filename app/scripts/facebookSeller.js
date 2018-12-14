@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import '../css/base.css';
-
 import Facebook from '../components/Facebook';
 import Remarkable from 'remarkable';
 import {Link} from "react-router";
