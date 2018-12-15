@@ -2,6 +2,8 @@ import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router'
 
+import Facebook from '../components/Facebook';
+// import Nav from './nav';
 import { API_URL, POLL_INTERVAL } from './global';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
@@ -12,6 +14,8 @@ module.exports = React.createClass({
         return {
             search: '',
             data: [],
+            sellerEmail: '',
+            _hasUser: false, //if the user is logged in. if true, seller Email will be populated
             columns: [
                 {
                     Header: 'author',
@@ -67,6 +71,16 @@ module.exports = React.createClass({
     handleTextbookSubmit: function (textbook) {
         var textbooks = this.state.data;
         textbook.id = Date.now();
+        console.log(textbook.email);
+        var user = {
+            name: textbook.name,
+            email: textbook.email,
+            photo: textbook.picture.data.url
+        };
+        var textbookWithEmail = textbook.concat(user
+        );
+        console.log('textbook with email: ', textbookWithEmail);
+        console.log('textbooks', textbooks);
         var newTextbooks = textbooks.concat([textbook]);
         this.setState({data: newTextbooks});
         $.ajax({
@@ -96,28 +110,42 @@ module.exports = React.createClass({
         // See https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
         this.state._isMounted = false;
     },
+    handleAuthentication: function(data) {
+        this.setState(
+            { _hasUser: true,
+                sellerEmail: data.user.email
+            });
+        this.loadTextbooksFromServer();
+    },
     handleSearchBarChange: function(e) {
         e.preventDefault();
         this.setState({search: e.target.value});
-
     },
     render: function() {
+        let main;
+        if (this.state._hasUser) {
+            main =(
+                <div>
+                    Search: <input value={this.state.search} onChange={this.handleSearchBarChange}/>
+                    <ReactTable data={this.state.data} conlumns={this.state.columns} defaultPageSize={10}/>
+                    <Link to={'/textbookForm'}>
+                        <button type="button">
+                            Create a new textbook
+                        </button>
+                    </Link>
+                    <Link to={'/sell'}>
+                        <button type="button">
+                            Login
+                        </button>
+                    </Link>
+            </div> );
+        } else {
+            main = <Facebook onAuthenticated={this.handleAuthentication} />;
+        }
         return (
             <div>
-                <h1>Textbooks</h1>
-                Search: <input value={this.state.search} onChange={this.handleSearchBarChange}/>
-                <ReactTable data={this.state.data} columns={this.state.columns} defaultPageSize={10}/>
-                <Link to={'/textbookForm'}>
-                    <button type="button">
-                        Create a new textbook
-                    </button>
-                </Link>
-                <Link to={'/sell'}>
-                    <button type="button">
-                        Login
-                    </button>
-                </Link>
-        </div>
+                {main}
+            </div>
         );
     }
 });
