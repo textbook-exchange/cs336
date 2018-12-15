@@ -18,14 +18,14 @@ module.exports = React.createClass({
             _hasUser: false, //if the user is logged in. if true, seller Email will be populated
             columns: [
                 {
-                    Header: 'author',
-                    accessor: 'author'
-                }, {
                     Header: 'photo',
                     Cell: (row) => {
                         return <div><img height={50} src={row.original.photo}/></div>
                     },
                 }, {
+                    Header: 'author',
+                    accessor: 'author'
+                },  {
                     Header: 'title',
                     accessor: 'title',
                 }, {
@@ -40,9 +40,25 @@ module.exports = React.createClass({
                 }, {
                     Header: 'email',
                     accessor: 'email',
-                    Cell: e => <Mailto email={e.value} obfuscate={true}> {e.value} </Mailto>
-                }]
-            , _isMounted: false
+                    Cell: e => <Mailto email={e.value} obfuscate={false}> {e.value} </Mailto>
+                },{
+                    Header: 'status',
+                    accessor: 'status',
+                    Cell: row => (
+                    <span>
+                    <span style={{
+                    color: row.value === 'sold' ? '#ff2e00'
+                            : '#57d500',
+                        transition: 'all .3s ease'
+                }}>
+                &#x25cf;
+                    </span> {
+                        row.value === 'sold' ? 'Sold'
+                            : 'Available'
+                    }
+                    </span>
+                )}]
+                , _isMounted: false
         };
     },
     loadTextbooksFromServer: function () {

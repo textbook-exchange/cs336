@@ -2,6 +2,7 @@
 
 Contributors: Kevin Tran, Quentin Barnes, Judy Kwon
 
+deployed at: https://cs336textbook-exchange.herokuapp.com
 More details are in Design.md, for project 2.
 
 This is a webapp for textbook exchange at Calvin, to facilitate selling and buying of books between students.

@@ -13,16 +13,18 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div>
-                <div>
-                    <h1>Facebook Auth Example</h1>
+                <div className="obj-center">
+                    <h1>Facebook Login</h1>
                     <p> to get started, authenticate with Facebook.</p>
                     <Facebook />
                 </div>
+                <div className="obj-center">
                 <Link to='/'>
                     <button type="button">
                         Cancel
                     </button>
                 </Link>
+                </div>
             </div>
         );
     }

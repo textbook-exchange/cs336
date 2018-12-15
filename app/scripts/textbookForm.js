@@ -89,7 +89,7 @@ module.exports = React.createClass({
             <div className="container">
                 <h1>Enter a New Textbook</h1>
                 <form className="textbookForm">
-                    <div className="labelobj">
+                    <div className="obj-center">
                         <label>
                             Title:
                         <input
@@ -99,7 +99,7 @@ module.exports = React.createClass({
                         />
                         </label>
                     </div>
-                    <div className="labelobj">
+                    <div className="obj-center">
                         <label>
                             Author:
                         <input
@@ -109,7 +109,7 @@ module.exports = React.createClass({
                         />
                         </label>
                     </div>
-                    <div className="labelobj">
+                    <div className="obj-center">
                         <label>
                             Price:
                         <input
@@ -119,7 +119,7 @@ module.exports = React.createClass({
                         />
                         </label>
                     </div>
-                    <div className="labelobj">
+                    <div className="obj-center">
                         <label>
                             What course is this book for:
                         <input
@@ -129,7 +129,7 @@ module.exports = React.createClass({
                         />
                         </label>
                     </div>
-                    <div className="labelobj">
+                    <div className="obj-center">
                         <label>
                             What is the condition of the book:
                             <select value={this.state.condition} onChange={this.handleConditionChange}>
@@ -140,22 +140,24 @@ module.exports = React.createClass({
                             </select>
                         </label>
                     </div>
-                    <div className="labelobj">
+                    <div className="obj-center">
                         <label>
                             Upload a photo of your book:
                             <input type="file" onChange={this.fileConditionChange}/>
                         </label>
                         <img style={{width: 50, height: 50}} src={this.state.photo.toString()}/>
                     </div>
-                    <div>
-                        <button type="button" onClick={this.handleTextbookFormSubmit} className="labelobj">Sell Textbook</button>
+                    <div className="obj-center">
+                        <button type="button" onClick={this.handleTextbookFormSubmit}>Sell Textbook</button>
                     </div>
                 </form>
-                <Link to='/'>
-                    <button type="button" onClick={this.handleCancelButton} className="labelobj">
-                        Cancel
-                    </button>
-                </Link>
+                <div className="obj-center">
+                    <Link to='/'>
+                        <button type="button" onClick={this.handleCancelButton}>
+                            Cancel
+                        </button>
+                    </Link>
+                </div>
             </div>
         );
     }
