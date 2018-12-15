@@ -2,20 +2,19 @@ import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router'
 
-import Facebook from '../components/Facebook';
-// import Nav from './nav';
+import Facebook from './Facebook';
 import { API_URL, POLL_INTERVAL } from './global';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import Mailto from 'react-mailto';
+// import { start } from 'repl';
 
 module.exports = React.createClass({
     getInitialState: function () {
         return {
             search: '',
             data: [],
-            sellerEmail: '',
-            _hasUser: false, //if the user is logged in. if true, seller Email will be populated
+            user: '',
             columns: [
                 {
                     Header: 'photo',
@@ -59,64 +58,50 @@ module.exports = React.createClass({
                     </span>
                 )}]
                 , _isMounted: false
+                , _hasUser: false //if the user is logged in. if true, seller Email will be populated
         };
     },
     loadTextbooksFromServer: function () {
-        if (this.state._isMounted) {
-            $.ajax({
-                url: API_URL,
-                dataType: 'json',
-                cache: false,
-            })
-                .done(function (result) {
-                    if (this.state.search) {
-                        var searchResult = result.filter(row => {
-                            return row.title.includes(this.state.search) || row.author.includes(this.state.search) || row.course.includes(this.state.search)
-                        })
-                    }
-                    else{
-                        var searchResult = result;
-                    }
-                    this.setState({data: searchResult});
-                }.bind(this))
-                .fail(function (xhr, status, errorThrown) {
-                    console.error(API_URL, status, errorThrown.toString());
-                }.bind(this));
-        }
-    },
-    handleTextbookSubmit: function (textbook) {
-        var textbooks = this.state.data;
-        textbook.id = Date.now();
-        console.log(textbook.email);
-        var user = {
-            name: textbook.name,
-            email: textbook.email,
-            photo: textbook.picture.data.url
-        };
-        var textbookWithEmail = textbook.concat(user
-        );
-        console.log('textbook with email: ', textbookWithEmail);
-        console.log('textbooks', textbooks);
-        var newTextbooks = textbooks.concat([textbook]);
-        this.setState({data: newTextbooks});
         $.ajax({
             url: API_URL,
             dataType: 'json',
-            type: 'POST',
-            data: textbook
+            cache: false,
         })
             .done(function (result) {
-                this.setState({data: result});
+                console.log('load textbook from server, this.state.data should have email', result);
+                if (this.state.search) {
+                    var searchResult = result.filter(row => {
+                        return row.title.includes(this.state.search) || row.author.includes(this.state.search) || row.course.includes(this.state.search)
+                    })
+                }
+                else{
+                    var searchResult = result;
+                }
+                this.setState({data: searchResult});
             }.bind(this))
             .fail(function (xhr, status, errorThrown) {
-                this.setState({data: textbooks});
                 console.error(API_URL, status, errorThrown.toString());
             }.bind(this));
     },
-    componentDidMount: function () {
-        this.state._isMounted = true;
+    handleAuthentication: function(data) {
+        console.log('box received user data as:', data);
+        this.setState({ _hasUser: true,
+            user: {
+                email: data.email,
+                name: data.name,
+                picture: data.picture
+            }
+        });
+        console.log('afer setting state from handle authentication');
         this.loadTextbooksFromServer();
         setInterval(this.loadTextbooksFromServer, POLL_INTERVAL);
+    },
+    componentDidMount: function () {
+        //grabbing of external data
+        this.state._isMounted = true;
+        // if (this.state._hasUser) {
+        //     tableFetch = setInterval(this.loadTextbooksFromServer, POLL_INTERVAL);  
+        // }
     },
     componentWillUnmount: function () {
         // Reset the isMounted flag so that the loadTextbooksFromServer callback
@@ -126,40 +111,60 @@ module.exports = React.createClass({
         // See https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
         this.state._isMounted = false;
     },
-    handleAuthentication: function(data) {
-        this.setState(
-            { _hasUser: true,
-                sellerEmail: data.user.email
-            });
-        this.loadTextbooksFromServer();
+    componentWillUpdate: function () {
+        console.log('fb authentication state set with user info', this.state.user);
     },
     handleSearchBarChange: function(e) {
         e.preventDefault();
         this.setState({search: e.target.value});
     },
     render: function() {
-        let main;
+        var main;
         if (this.state._hasUser) {
-            main =(
+            main = (
                 <div>
+                <div className="obj-center">
+                    <Link to='/'>
+                        <button type="button">
+                            Cancel
+                        </button>
+                    </Link>
+    
+    
+                    <Link to={{
+                        pathname: '/textbookForm',
+                        state: { user: this.state.user }
+                    }}>
+                        <button type="button">
+                            Sell my textbook
+                        </button>
+                    </Link>
+    
+                    <Link to='/box'>
+                        <button type="button">
+                            textbookBox
+                        </button>
+                    </Link>
+                </div>
+                    <div>
+                    <h2>Textbooks</h2>
                     Search: <input value={this.state.search} onChange={this.handleSearchBarChange}/>
-                    <ReactTable data={this.state.data} conlumns={this.state.columns} defaultPageSize={10}/>
-                    <Link to={'/textbookForm'}>
-                        <button type="button">
-                            Create a new textbook
-                        </button>
-                    </Link>
-                    <Link to={'/sell'}>
-                        <button type="button">
-                            Login
-                        </button>
-                    </Link>
-            </div> );
-        } else {
-            main = <Facebook onAuthenticated={this.handleAuthentication} />;
+                    <ReactTable data={this.state.data} columns={this.state.columns} defaultPageSize={10}/>
+                    </div>
+                </div>
+            );
         }
+        let userStatus = (
+            <div>
+                <div className="obj-center">
+                    <Facebook onAuthenticated={this.handleAuthentication} />
+                </div>
+            </div>
+        );
         return (
             <div>
+                <h1>Textbook Exchange</h1>
+                {userStatus}
                 {main}
             </div>
         );

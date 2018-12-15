@@ -9,7 +9,7 @@ import {API_URL} from './global';
 
 module.exports = React.createClass({
     getInitialState: function () {
-        return {author: '', title: '', price: '', course: '', condition: 'Like New', photo: ''};
+        return {author: '', title: '', price: '', course: '', condition: 'Like New', photo: '', email: '', status: ''};
     },
     getBase64(file, cb) {
         let reader = new FileReader();
@@ -54,35 +54,44 @@ module.exports = React.createClass({
         var price = this.state.price.trim();
         var course = this.state.course.trim();
         var condition = this.state.condition.trim();
-        // var seller = this.state.seller;
+        // var user = this.props.location.state;
         if (!title || !author || !price || !course || !condition) {
             return;
         }
-        console.log('Running Submit Textbook');
+        console.log('Testing for handleTextbookFormSubmit');
+        console.log('this.props.location.state', this.props.location.state.user.email);
+        var email = this.props.location.state.user.email.trim();
+        var userName = this.props.location.state.user.name.trim();
         var textbooks = this.state.data;
-        var submitComment = {
-            title: this.state.title.trim(),
-            author: this.state.author.trim(),
-            price: this.state.price.trim(),
-            course: this.state.course.trim(),
-            condition: this.state.condition.trim(),
-            photo: this.state.photo.trim()
-        };
+        var submitTextbook = {
+            title: title,
+            author: author,
+            price: price,
+            course: course,
+            condition: condition,
+            photo: this.state.photo.trim(),
+            email: email,
+            status: "available"
+        }
+        console.log('submitting textbook through ajax', submitTextbook);
 
         $.ajax({
-            url: '/api/newTextbook',
-            dataType: 'json',
-            type: 'POST',
-            data: submitComment
-        })
-            .done(function (result) {
-                this.context.router.push('/');
-            }.bind(this))
-            .fail(function (xhr, status, errorThrown) {
-                this.setState({data: textbooks});
-                console.error(API_URL, status, errorThrown.toString());
-            }.bind(this));
-
+                url: '/api/newTextbook',
+                dataType: 'json',
+                type: 'POST',
+                data: submitTextbook
+            })
+                .done(function (result) {
+                    console.log('posted', submitTextbook);
+                    this.context.router.push('/');
+                }.bind(this))
+                .fail(function (xhr, status, errorThrown) {
+                    this.setState({data: textbooks});
+                    console.error(API_URL, status, errorThrown.toString());
+                }.bind(this)); 
+    },
+    handleReturnButton: function (e) {
+        
     },
     render: function () {
         return (
@@ -121,7 +130,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="obj-center">
                         <label>
-                            What course is this book for:
+                            Course: 
                         <input
                             type="text"
                             value={this.state.course}
@@ -131,7 +140,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="obj-center">
                         <label>
-                            What is the condition of the book:
+                            Condition: 
                             <select value={this.state.condition} onChange={this.handleConditionChange}>
                                 <option value="Great">Great</option>
                                 <option value="Good">Good</option>
@@ -142,7 +151,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="obj-center">
                         <label>
-                            Upload a photo of your book:
+                            Photo: 
                             <input type="file" onChange={this.fileConditionChange}/>
                         </label>
                         <img style={{width: 50, height: 50}} src={this.state.photo.toString()}/>
@@ -155,6 +164,21 @@ module.exports = React.createClass({
                     <Link to='/'>
                         <button type="button" onClick={this.handleCancelButton}>
                             Cancel
+                        </button>
+                    </Link>
+
+                    <Link to={{
+                        pathname: '/',
+                        state: { _hasUser: true,
+                            user: {
+                                email: email,
+                                name: userName,
+                                picture: this.props.location.state.user.picture.trim()
+                            }
+                        }
+                    }} >
+                        <button type="button">
+                            Return to main
                         </button>
                     </Link>
                 </div>
