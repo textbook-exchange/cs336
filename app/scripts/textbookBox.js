@@ -33,6 +33,9 @@ module.exports = React.createClass({
                 }, {
                     Header: 'condition',
                     accessor: 'condition',
+                },{
+                    Header: 'name',
+                    accessor: 'name',
                 }, {
                     Header: 'email',
                     accessor: 'email',

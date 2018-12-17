@@ -10,7 +10,6 @@ import FacebookLogin from "react-facebook-login";
 module.exports = React.createClass({
     getInitialState: function () {
         return {
-            isLoggedIn: false,
             author: '',
             title: '',
             price: '',
@@ -75,9 +74,9 @@ module.exports = React.createClass({
         var title = this.state.title.trim();
         var price = this.state.price.trim();
         var course = this.state.course.trim();
-        var name = this.state.name.trim();
-        var email = this.state.email.trim();
         var condition = this.state.condition.trim();
+        var name = this.state.name;
+        var email = this.state.email.trim();
         if (!title || !author || !price || !course || !condition || !name || !email) {
             return;
         }
@@ -88,9 +87,9 @@ module.exports = React.createClass({
             author: this.state.author.trim(),
             price: this.state.price.trim(),
             course: this.state.course.trim(),
-            name: this.state.name.trim(),
-            email: this.state.email.trim(),
             condition: this.state.condition.trim(),
+            name: this.state.name,
+            email: this.state.email.trim(),
             photo: this.state.photo.trim()
         };
 
@@ -209,7 +208,7 @@ module.exports = React.createClass({
                     </form>
                     {/*end <form>*/}
 
-                    {/*Facebook Login*/}
+                    Facebook Login
                     <div className="button-top-right">
                         <FacebookLogin
                             appId="361886987905872"
