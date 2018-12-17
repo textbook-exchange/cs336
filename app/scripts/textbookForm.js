@@ -62,10 +62,11 @@ module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
     },
-    responseFacebook: function (e) {
+    responseFacebook: function (response) {
+        console.log(response, 'fb response');
         this.setState({
-            name: e.target.value,
-            email: e.target.value
+            name: response.name,
+            email: response.email
         });
     },
     handleTextbookFormSubmit: function (e) {
