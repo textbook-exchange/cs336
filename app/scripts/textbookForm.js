@@ -15,7 +15,7 @@ module.exports = React.createClass({
             title: '',
             price: '',
             course: '',
-            condition: '',
+            condition: 'Great',
             name: '',
             email: '',
             photo: ''
@@ -63,14 +63,11 @@ module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
     },
-    responseFacebook: function(response){
-        console.log(response,'fb response');
+    responseFacebook: function (e) {
         this.setState({
-            name: response.name,
-            email: response.email
-    });
-        console.log(user, 'user');
-        this.props.onAuthenticated(user);
+            name: e.target.value,
+            email: e.target.value
+        });
     },
     handleTextbookFormSubmit: function (e) {
         e.preventDefault();
@@ -78,10 +75,9 @@ module.exports = React.createClass({
         var title = this.state.title.trim();
         var price = this.state.price.trim();
         var course = this.state.course.trim();
-        var name = this.state.name;
+        var name = this.state.name.trim();
         var email = this.state.email.trim();
         var condition = this.state.condition.trim();
-        // var seller = this.state.seller;
         if (!title || !author || !price || !course || !condition || !name || !email) {
             return;
         }
@@ -92,7 +88,7 @@ module.exports = React.createClass({
             author: this.state.author.trim(),
             price: this.state.price.trim(),
             course: this.state.course.trim(),
-            name: this.state.name,
+            name: this.state.name.trim(),
             email: this.state.email.trim(),
             condition: this.state.condition.trim(),
             photo: this.state.photo.trim()
@@ -204,30 +200,32 @@ module.exports = React.createClass({
                             <img style={{width: 50, height: 50}} src={this.state.photo.toString()}/>
                         </div>
 
-                        {/*Facebook Login*/}
-                        <div className="button-top-right">
-                            <FacebookLogin
-                                appId="361886987905872"
-                                autoLoad={true}
-                                fields="name,email"
-                                onClick={this.componentClicked}
-                                callback={this.responseFacebook}
-                            />
-                        </div>
-
-                    {/*Sell Button*/}
+                        {/*Sell Button*/}
                         <div className="obj-center">
                             <button type="button" className="sell-button"
-                                    onClick={this.handleTextbookFormSubmit}>Sell</button>
+                                    onClick={this.handleTextbookFormSubmit}>Sell
+                            </button>
                         </div>
                     </form>
                     {/*end <form>*/}
+
+                    {/*Facebook Login*/}
+                    <div className="button-top-right">
+                        <FacebookLogin
+                            appId="361886987905872"
+                            autoLoad={true}
+                            fields="name,email"
+                            onClick={this.componentClicked}
+                            callback={this.responseFacebook}
+                        />
+                    </div>
 
                     {/*Cancel Button*/}
                     <div className="obj-center">
                         <Link to='/'>
                             <button type="button" className="cancel-button"
-                                    onClick={this.handleCancelButton}>Cancel</button>
+                                    onClick={this.handleCancelButton}>Cancel
+                            </button>
                         </Link>
                     </div>
                 </div>

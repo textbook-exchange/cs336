@@ -34,16 +34,6 @@ app.get('/api/textbooks', function(req, res) {
     });
 });
 
-// app.post('/api/photos', function(req, res) {
-//     db.collection("textbooks").insertOne(newTextbook, function(err, result) {
-//         if (err) throw err;
-//         db.collection("textbooks").find({}).toArray(function(err, textbooks) {
-//             if (err) throw err;
-//             res.json(textbooks);
-//         });
-//     });
-// });
-
 app.post('/api/newTextbook', function(req, res) {
     var newTextbook = {
         title: req.body.title,
@@ -51,6 +41,8 @@ app.post('/api/newTextbook', function(req, res) {
         price: req.body.price,
         course: req.body.course,
         condition: req.body.condition,
+        name: req.body.name,
+        email: req.body.email,
         photo: req.body.photo
     };
     db.collection("textbooks").insertOne(newTextbook, function(err, result) {
@@ -63,33 +55,32 @@ app.post('/api/newTextbook', function(req, res) {
 });
 
 
+app.put('/api/comments/:id', function(req, res) {
+    var updateId = Number(req.params.id);
+    var update = req.body;
+    db.collection('textbooks').updateOne(
+        { id: updateId },
+        { $set: update },
+        function(err, result) {
+            if (err) throw err;
+            db.collection("textbooks").find({}).toArray(function(err, docs) {
+                if (err) throw err;
+                res.json(docs);
+            });
+        });
+});
 
-// app.put('/api/comments/:id', function(req, res) {
-//     var updateId = Number(req.params.id);
-//     var update = req.body;
-//     db.collection('textbooks').updateOne(
-//         { id: updateId },
-//         { $set: update },
-//         function(err, result) {
-//             if (err) throw err;
-//             db.collection("textbooks").find({}).toArray(function(err, docs) {
-//                 if (err) throw err;
-//                 res.json(docs);
-//             });
-//         });
-// });
-
-// app.delete('/api/comments/:id', function(req, res) {
-//     db.collection("textbooks").deleteOne(
-//         {'id': Number(req.params.id)},
-//         function(err, result) {
-//             if (err) throw err;
-//             db.collection("textbooks").find({}).toArray(function(err, docs) {
-//                 if (err) throw err;
-//                 res.json(docs);
-//             });
-//         });
-// });
+app.delete('/api/comments/:id', function(req, res) {
+    db.collection("textbooks").deleteOne(
+        {'id': Number(req.params.id)},
+        function(err, result) {
+            if (err) throw err;
+            db.collection("textbooks").find({}).toArray(function(err, docs) {
+                if (err) throw err;
+                res.json(docs);
+            });
+        });
+});
 
 app.use('*', express.static(APP_PATH));
 
