@@ -209,7 +209,7 @@ module.exports = React.createClass({
                     </form>
                     {/*end <form>*/}
 
-                    Facebook Login
+                    {/*Facebook Login*/}
                     <div className="button-top-right">
                         <FacebookLogin
                             appId="361886987905872"
