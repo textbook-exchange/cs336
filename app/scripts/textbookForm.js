@@ -215,7 +215,6 @@ module.exports = React.createClass({
                             />
                         </div>
 
-                    {/*Sell and Cancel Buttons*/}
                     {/*Sell Button*/}
                         <div className="obj-center">
                             <button type="button" className="sell-button"
