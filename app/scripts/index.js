@@ -9,7 +9,7 @@ import TextbookForm from './textbookForm';
 ReactDOM.render((
         <Router history={browserHistory}>
             <Route path="/" component={TextbookBox}/>
-            <Route path="/sell" component={FacebookSeller} />
+            <Route path="/sell" component={FacebookSeller}/>
             <Route path="/textbookForm" component={TextbookForm}/>
         </Router>
     ), document.getElementById('content')

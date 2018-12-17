@@ -28,7 +28,6 @@ code {
 
 h1, h2, h3, h4 {
     font-weight: bold;
-    margin: 0 0 15px;
     padding: 0;
 }
 
@@ -58,11 +57,8 @@ ul {
     padding-left: 30px;
 }
 
-#loginBox {
-  width: "400px";
-  margin: "auto";
-  background: "#f4f4f4";
-  padding: "20px"
+.loginBox {
+    background: "#f4f4f4";
 }
 
 .shadow {
@@ -71,9 +67,7 @@ ul {
 }
 .container {
     margin: 0 auto;
-    margin-top: 50px;;
-
-    height: 80vh;
+    width: 50vh;
     background: #F2F2F2;
     border: 1px solid #ccc;
     box-shadow: 1px 1px 2px #fff inset,
@@ -83,4 +77,39 @@ ul {
 
 .obj-center {
     text-align: center;
+}
+
+.button-top-right {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+}
+.sell-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    width: 200px;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    width: 200px;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
