@@ -14,14 +14,14 @@ module.exports = React.createClass({
             data: [],
             columns: [
                 {
-                    Header: 'author',
-                    accessor: 'author'
-                }, {
                     Header: 'photo',
                     Cell: (row) => {
                         return <div><img height={50} src={row.original.photo}/></div>
                     },
                 }, {
+                    Header: 'author',
+                    accessor: 'author'
+                },  {
                     Header: 'title',
                     accessor: 'title',
                 }, {
