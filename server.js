@@ -1,10 +1,14 @@
+//Import required libraries for the server and the functionalities to parse the data and access the data
 var fs = require('fs');
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+
+//Set the port to 3000 when running this server on LocalHost
 app.set('port', (process.env.PORT || 3000));
 
+//Configurations and import of the MongoDB feature
 var MongoClient = require('mongodb').MongoClient
 var db;
 var password = process.env.MONGO_PASSWORD;
@@ -27,6 +31,7 @@ app.use(function(req, res, next) {
     next();
 });
 
+//MongoDB: Get Entries Operation
 app.get('/api/textbooks', function(req, res) {
     // Lab 10 - MongoDB commands
     db.collection('textbooks').find({}).toArray(function (err, textbooks){
@@ -34,6 +39,7 @@ app.get('/api/textbooks', function(req, res) {
     });
 });
 
+//MongoDB: Create Entry Operation
 app.post('/api/newTextbook', function(req, res) {
     var newTextbook = {
         title: req.body.title,
@@ -54,8 +60,8 @@ app.post('/api/newTextbook', function(req, res) {
     });
 });
 
-
-app.put('/api/comments/:id', function(req, res) {
+//MongoDB: Update Entry Operation
+app.put('/api/textbooks/:id', function(req, res) {
     var updateId = Number(req.params.id);
     var update = req.body;
     db.collection('textbooks').updateOne(
@@ -70,7 +76,8 @@ app.put('/api/comments/:id', function(req, res) {
         });
 });
 
-app.delete('/api/comments/:id', function(req, res) {
+//MongoDB: Delete Entry Operation
+app.delete('/api/textbooks/:id', function(req, res) {
     db.collection("textbooks").deleteOne(
         {'id': Number(req.params.id)},
         function(err, result) {
@@ -84,6 +91,7 @@ app.delete('/api/comments/:id', function(req, res) {
 
 app.use('*', express.static(APP_PATH));
 
+//Connect to the MongoDB database before starting the server to ensure the database connection first
 MongoClient.connect(mongo_connection, function (err, client) {
     if (err) throw err;
 

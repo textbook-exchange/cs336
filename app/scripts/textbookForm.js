@@ -1,15 +1,19 @@
+//Import required libraries needed for React and React Router
 import React from 'react';
 import {Link} from 'react-router';
 import $ from 'jquery';
+import {API_URL} from './global';
 
+//Import the CSS required to display the web application interface
 import '../css/base.css';
 
-import {API_URL} from './global';
+//Import the Facebook Login API
 import FacebookLogin from "react-facebook-login";
 
 module.exports = React.createClass({
     getInitialState: function () {
         return {
+            //All of the parts of the textbook object contained in MongoDB
             author: '',
             title: '',
             price: '',
@@ -20,6 +24,8 @@ module.exports = React.createClass({
             photo: ''
         };
     },
+
+    //This handles the photo upload feature and handle the photo displaying in the web application
     getBase64(file, cb) {
         let reader = new FileReader();
         reader.readAsDataURL(file);
@@ -30,6 +36,8 @@ module.exports = React.createClass({
             console.log('Error: ', error);
         };
     },
+
+    //all of the handle..Change will ensure the state of the information will be sent successfully
     handleAuthorChange: function (e) {
         this.setState({author: e.target.value});
     },
@@ -56,12 +64,17 @@ module.exports = React.createClass({
             this.setState({photo: result})
         });
     },
+
+    //The Cancel button revert back to the index or home page
     handleCancelButton: function (e) {
         this.context.router.push('/');
     },
+
     contextTypes: {
         router: React.PropTypes.object
     },
+
+    //The Facebook API Login configuration will upload the user's FB information into the corresponding states after login
     responseFacebook: function (response) {
         console.log(response, 'fb response');
         this.setState({
@@ -69,6 +82,8 @@ module.exports = React.createClass({
             email: response.email
         });
     },
+
+    //This will ensure that the user has provided all of the information (photo is optional) and send the data successfully
     handleTextbookFormSubmit: function (e) {
         e.preventDefault();
         var author = this.state.author.trim();
@@ -81,6 +96,8 @@ module.exports = React.createClass({
         if (!title || !author || !price || !course || !condition || !name || !email) {
             return;
         }
+
+        //Submit the textbook once all of the above conditions have been met
         console.log('Running Submit Textbook');
         var textbooks = this.state.data;
         var submitTextbook = {
@@ -94,6 +111,7 @@ module.exports = React.createClass({
             photo: this.state.photo.trim()
         };
 
+        //POST the data for MongoDB to create the new object
         $.ajax({
             url: '/api/newTextbook',
             dataType: 'json',
@@ -112,9 +130,14 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div>
+                {/*Header of the page*/}
                 <h1>Sell a Textbook</h1>
+
+                {/*Container for the form*/}
                 <div className="container">
+                    {/*Form begins here*/}
                     <form className="textbookForm">
+                        {/*User input Title of the textbook*/}
                         <div className="obj-center">
                             <label>
                                 Title:
@@ -125,6 +148,7 @@ module.exports = React.createClass({
                                 />
                             </label>
                         </div>
+                        {/*User input Author of the textbook*/}
                         <div className="obj-center">
                             <label>
                                 Author:
@@ -135,6 +159,7 @@ module.exports = React.createClass({
                                 />
                             </label>
                         </div>
+                        {/*User input Price of the textbook*/}
                         <div className="obj-center">
                             <label>
                                 Price:
@@ -145,6 +170,7 @@ module.exports = React.createClass({
                                 />
                             </label>
                         </div>
+                        {/*User input Course of the textbook*/}
                         <div className="obj-center">
                             <label>
                                 Course/Class:
@@ -155,6 +181,7 @@ module.exports = React.createClass({
                                 />
                             </label>
                         </div>
+                        {/*User input Book Condition of the textbook*/}
                         <div className="obj-center">
                             <label>
                                 Book Condition:

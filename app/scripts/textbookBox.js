@@ -1,7 +1,9 @@
+//Import required libraries needed for React and React Router
 import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router'
 
+//Import React Table, and MailTo libraries to use the Table and Email features
 import {API_URL, POLL_INTERVAL} from './global';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
@@ -10,8 +12,11 @@ import Mailto from 'react-mailto';
 module.exports = React.createClass({
     getInitialState: function () {
         return {
+            //This is used for the search bar feature that filters the React Table
             search: '',
+            //This will contain the data extracted from the MongoDB
             data: [],
+            //Configuration for the React Table to determine the specific columns and which data is accessed
             columns: [
                 {
                     Header: 'photo',
@@ -61,6 +66,7 @@ module.exports = React.createClass({
             , _isMounted: false
         };
     },
+    //Retrieve the data from the MongoDB (the server continuously requests data from the DB)
     loadTextbooksFromServer: function () {
         if (this.state._isMounted) {
             $.ajax({
@@ -69,6 +75,7 @@ module.exports = React.createClass({
                 cache: false,
             })
                 .done(function (result) {
+                    //Search bar feature configuration to filter the data and change the state.search
                     if (this.state.search) {
                         var searchResult = result.filter(row => {
                             return row.title.includes(this.state.search) || row.author.includes(this.state.search) || row.course.includes(this.state.search)
@@ -84,6 +91,7 @@ module.exports = React.createClass({
                 }.bind(this));
         }
     },
+    //The server will POST the data when the user submits the completed form for the MongoDB to receive
     handleTextbookSubmit: function (textbook) {
         var textbooks = this.state.data;
         textbook.id = Date.now();
@@ -116,10 +124,10 @@ module.exports = React.createClass({
         // See https://reactjs.org/blog/2015/12/16/ismounted-antipattern.html
         this.state._isMounted = false;
     },
+    // This will handle the search bar's  state changes for the state.search
     handleSearchBarChange: function (e) {
         e.preventDefault();
         this.setState({search: e.target.value});
-
     },
     render: function () {
         return (
