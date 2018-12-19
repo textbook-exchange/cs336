@@ -12,7 +12,7 @@ import Mailto from 'react-mailto';
 module.exports = React.createClass({
     getInitialState: function () {
         return {
-            //This is used for the search bar feature that filters the React Table
+            // This is used for the search bar feature that filters the React Table
             search: '',
             //This will contain the data extracted from the MongoDB
             data: [],
@@ -26,7 +26,7 @@ module.exports = React.createClass({
                 }, {
                     Header: 'author',
                     accessor: 'author'
-                },  {
+                }, {
                     Header: 'title',
                     accessor: 'title',
                 }, {
@@ -38,7 +38,7 @@ module.exports = React.createClass({
                 }, {
                     Header: 'condition',
                     accessor: 'condition',
-                },{
+                }, {
                     Header: 'name',
                     accessor: 'name',
                 }, {
